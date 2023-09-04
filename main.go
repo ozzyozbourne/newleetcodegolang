@@ -5,12 +5,20 @@ import (
 )
 
 func main() {
-	//printName("ozzy", 5)
-	//printLinearlyFrom1ToN(10)
-	//printLinearlyFromNTo1(10)
-	//p.Printf("%d\n", summation(4))
+	printName("ozzy", 5)
+	printLinearlyFrom1ToN(10)
+	printLinearlyFromNTo1(10)
+	p.Printf("%d\n", summation(4))
 	p.Printf("%d\n", factorialB(4))
 	p.Printf("%d\n", factorialTailOp(4))
+
+	arr := []int{1, 2, 3, 4, 5, 6, 7, 8}
+	reverseRecursively(arr, 0)
+	p.Printf("%v\n", arr)
+
+	arr = []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
+	reverseRecursively(arr, 0)
+	p.Printf("%v\n", arr)
 }
 
 func printName(name string, num int) {
@@ -64,4 +72,14 @@ func factorialB(n uint) uint {
 		return 1
 	}
 	return n * factorialB(n-1)
+}
+
+func reverseRecursively(arr []int, i int) {
+	if i >= len(arr)-1-i {
+		return
+	}
+	temp := arr[i]
+	arr[i] = arr[len(arr)-1-i]
+	arr[len(arr)-1-i] = temp
+	reverseRecursively(arr, i+1)
 }
