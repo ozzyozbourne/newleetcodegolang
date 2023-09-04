@@ -19,6 +19,9 @@ func main() {
 	arr = []int{1, 2, 3, 4, 5, 6, 7, 8, 9}
 	reverseRecursively(arr, 0)
 	p.Printf("%v\n", arr)
+
+	p.Printf("%v\n", isPalindrome([]byte("osaid"), 0))
+	p.Printf("%v\n", isPalindrome([]byte("OohoO"), 0))
 }
 
 func printName(name string, num int) {
@@ -82,4 +85,14 @@ func reverseRecursively(arr []int, i int) {
 	arr[i] = arr[len(arr)-1-i]
 	arr[len(arr)-1-i] = temp
 	reverseRecursively(arr, i+1)
+}
+
+func isPalindrome(v []byte, i int) bool {
+	if i == len(v) {
+		return true
+	}
+	if v[i] != v[len(v)-1-i] {
+		return false
+	}
+	return isPalindrome(v, i+1)
 }
