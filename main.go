@@ -22,6 +22,16 @@ func main() {
 
 	p.Printf("%v\n", isPalindrome([]byte("osaid"), 0))
 	p.Printf("%v\n", isPalindrome([]byte("OohoO"), 0))
+	p.Printf("%d\n", fib(3))
+	p.Printf("%d\n", fib(4))
+	p.Printf("%d\n", fib(5))
+}
+
+func fib(n int) int {
+	if n == 1 || n == 0 {
+		return n
+	}
+	return fib(n-1) + fib(n-2)
 }
 
 func printName(name string, num int) {
