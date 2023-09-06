@@ -25,6 +25,8 @@ func main() {
 	p.Printf("%d\n", fib(3))
 	p.Printf("%d\n", fib(4))
 	p.Printf("%d\n", fib(5))
+
+	isSubsequence("b", "abc")
 }
 
 func fib(n int) int {
@@ -105,4 +107,14 @@ func isPalindrome(v []byte, i int) bool {
 		return false
 	}
 	return isPalindrome(v, i+1)
+}
+
+func isSubsequence(s string, t string) bool {
+	l, c, d := 0, len(s), len(t)
+	for i := 0; l < c && i < d; i++ {
+		if s[l] == t[i] {
+			l++
+		}
+	}
+	return l == c
 }
