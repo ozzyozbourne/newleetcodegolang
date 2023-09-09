@@ -150,3 +150,29 @@ func isSubsequence(s string, t string) bool {
 	}
 	return l == c
 }
+
+func threeSumOptimal(nums []int) [][]int {
+	sort.Ints(nums)
+	res := [][]int{}
+	for i := 0; i < len(nums)-2; i++ {
+		if i > 0 && nums[i] == nums[i-1] {
+			continue
+		}
+		j, k := i+1, len(nums)-1
+		for j < k {
+			sum := nums[i] + nums[j] + nums[k]
+			if sum == 0 {
+				res = append(res, []int{nums[i], nums[j], nums[k]})
+				j++
+				for nums[j] == nums[j-1] && j < k {
+					j++
+				}
+			} else if sum < 0 {
+				j += 1
+			} else {
+				k -= 1
+			}
+		}
+	}
+	return res
+}
