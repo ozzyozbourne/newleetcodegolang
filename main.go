@@ -2,6 +2,7 @@ package main
 
 import (
 	p "fmt"
+	"sort"
 )
 
 func main() {
@@ -27,6 +28,37 @@ func main() {
 	p.Printf("%d\n", fib(5))
 
 	isSubsequence("b", "abc")
+	a := [][]int{}
+	p.Printf("%v\n", a == nil)
+}
+
+func threeSum(nums []int) [][]int {
+	sort.Ints(nums)
+	res := [][]int{}
+	set := make(map[[3]int]struct{})
+	for i := 0; i < len(nums); i++ {
+		j, k := i+1, len(nums)-1
+		for j < k {
+			sum := nums[i] + nums[j] + nums[k]
+			if sum == 0 {
+				set[[3]int{nums[i], nums[j], nums[k]}] = struct{}{}
+				j++
+				for nums[j] == nums[j-1] && j < k {
+					j++
+				}
+			} else if sum < 0 {
+				j++
+			} else {
+				k--
+			}
+		}
+	}
+
+	for triplet := range set {
+		res = append(res, []int{triplet[0], triplet[1], triplet[2]})
+	}
+	return res
+
 }
 
 func fib(n int) int {
