@@ -176,3 +176,17 @@ func threeSumOptimal(nums []int) [][]int {
 	}
 	return res
 }
+
+func twoSum(nums []int, target int) []int {
+    dict := make(map[int]int)
+    var res []int
+    for i, v:= range nums {
+        if _, ok := dict[target - v]; ok {
+            res = append(res, i, dict[target - v])
+            break 
+        }else {
+            dict[v] = i
+        } 
+    }
+    return res
+}
