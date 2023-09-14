@@ -190,3 +190,17 @@ func twoSum(nums []int, target int) []int {
     }
     return res
 }
+
+func twoSumtwo(nums []int, target int) []int {
+   l, r := 0, len(nums)-1 
+   for l < r {
+       if nums[l] + nums[r] < target {
+           l+=1
+       }else if nums[l] + nums[r] > target {
+           r-=1
+       }else {
+           break
+       }
+   }
+   return []int{l+1, r+1}
+}
