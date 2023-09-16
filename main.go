@@ -30,6 +30,7 @@ func main() {
 	isSubsequence("b", "abc")
 	a := [][]int{}
 	p.Printf("%v\n", a == nil)
+	fourSum([]int{2, 2, 2, 2}, 8)
 }
 
 func threeSum(nums []int) [][]int {
@@ -178,29 +179,67 @@ func threeSumOptimal(nums []int) [][]int {
 }
 
 func twoSum(nums []int, target int) []int {
-    dict := make(map[int]int)
-    var res []int
-    for i, v:= range nums {
-        if _, ok := dict[target - v]; ok {
-            res = append(res, i, dict[target - v])
-            break 
-        }else {
-            dict[v] = i
-        } 
-    }
-    return res
+	dict := make(map[int]int)
+	var res []int
+	for i, v := range nums {
+		if _, ok := dict[target-v]; ok {
+			res = append(res, i, dict[target-v])
+			break
+		} else {
+			dict[v] = i
+		}
+	}
+	return res
 }
 
 func twoSumtwo(nums []int, target int) []int {
-   l, r := 0, len(nums)-1 
-   for l < r {
-       if nums[l] + nums[r] < target {
-           l+=1
-       }else if nums[l] + nums[r] > target {
-           r-=1
-       }else {
-           break
-       }
-   }
-   return []int{l+1, r+1}
+	l, r := 0, len(nums)-1
+	for l < r {
+		if nums[l]+nums[r] < target {
+			l += 1
+		} else if nums[l]+nums[r] > target {
+			r -= 1
+		} else {
+			break
+		}
+	}
+	return []int{l + 1, r + 1}
+}
+
+func fourSum(nums []int, target int) [][]int {
+	if len(nums) < 4 {
+		return [][]int{}
+	}
+	sort.Ints(nums)
+	return kSum(4, 0, int64(target), nums, [][]int{}, []int{})
+}
+
+func kSum(k int, start int, target int64, nums []int, res [][]int, tuple []int) [][]int {
+	if k > 2 {
+		for i := start; i < len(nums)-k+1; i++ {
+			if i > start && nums[i] == nums[i-1] {
+				continue
+			}
+			tuple = append(tuple, nums[i])
+			res = kSum(k-1, i+1, target-int64(nums[i]), nums, res, tuple)
+			tuple = tuple[:len(tuple)-1]
+		}
+	} else {
+		l, r := start, len(nums)-1
+		for l < r {
+			var sum int64 = int64(nums[l]) + int64(nums[r])
+			if sum < target {
+				l += 1
+			} else if sum > target {
+				r -= 1
+			} else {
+				res = append(res, []int{tuple[0], tuple[1], nums[l], nums[r]})
+				l += 1
+				for nums[l] == nums[l-1] && l < r {
+					l += 1
+				}
+			}
+		}
+	}
+	return res
 }
