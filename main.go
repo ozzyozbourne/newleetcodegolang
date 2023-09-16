@@ -211,18 +211,17 @@ func fourSum(nums []int, target int) [][]int {
 		return [][]int{}
 	}
 	sort.Ints(nums)
-	return kSum(4, 0, int64(target), nums, [][]int{}, []int{})
+	return kSum(4, 0, int64(target), nums, [][]int{}, [2]int{})
 }
 
-func kSum(k int, start int, target int64, nums []int, res [][]int, tuple []int) [][]int {
+func kSum(k int, start int, target int64, nums []int, res [][]int, tuple [2]int) [][]int {
 	if k > 2 {
 		for i := start; i < len(nums)-k+1; i++ {
 			if i > start && nums[i] == nums[i-1] {
 				continue
 			}
-			tuple = append(tuple, nums[i])
+			tuple[4-k] = nums[i]
 			res = kSum(k-1, i+1, target-int64(nums[i]), nums, res, tuple)
-			tuple = tuple[:len(tuple)-1]
 		}
 	} else {
 		l, r := start, len(nums)-1
